@@ -1,4 +1,4 @@
-package game;
+package game.item;
 
 /**
  * A highly ambitious enumeration designed to categorize the myriad of complex,

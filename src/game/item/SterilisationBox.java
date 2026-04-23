@@ -1,4 +1,4 @@
-package game;
+package game.item;
 
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.statistics.BaseStatistic;

@@ -1,4 +1,4 @@
-package game;
+package game.main;
 
 import edu.monash.fit2099.engine.displays.Display;
 

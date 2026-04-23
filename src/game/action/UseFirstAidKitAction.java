@@ -1,10 +1,11 @@
-package game;
+package game.action;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actors.ActorStatistics;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.statistics.StatisticOperations;
+import game.item.FirstAidKit;
 
 /**
  * An action for using the {@link FirstAidKit}.

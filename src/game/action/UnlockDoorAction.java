@@ -1,9 +1,10 @@
-package game;
+package game.action;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.ground.Door;
 
 /**
  * The bureaucratic process of asking a piece of the environment for permission to pass.

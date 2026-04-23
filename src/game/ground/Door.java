@@ -1,4 +1,4 @@
-package game;
+package game.ground;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
@@ -9,7 +9,7 @@ import edu.monash.fit2099.engine.positions.Ground;
  * piece of plastic.
  */
 public class Door extends Ground {
-    boolean isUnlocked = false;
+    public boolean isUnlocked = false;
 
     public Door() {
         super('=', "Door");

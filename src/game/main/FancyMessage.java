@@ -1,4 +1,4 @@
-package game;
+package game.main;
 
 /**
  * A repository for the game's high-fidelity, next-generation graphical assets

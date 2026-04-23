@@ -1,4 +1,4 @@
-package game;
+package game.item;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.statistics.BaseStatistic;
+import game.action.UseFirstAidKitAction;
 
 /**
  * A super useful medical kit, weighing a back-breaking 25 units.

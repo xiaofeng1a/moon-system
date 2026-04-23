@@ -1,4 +1,4 @@
-package game;
+package game.item;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
@@ -7,6 +7,8 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.statistics.BaseStatistic;
+import game.ground.Door;
+import game.action.UnlockDoorAction;
 
 /**
  * A class representing a small rectangular piece of plastic that holds entirely
