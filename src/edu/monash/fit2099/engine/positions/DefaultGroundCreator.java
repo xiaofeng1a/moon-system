@@ -20,7 +20,7 @@ public class DefaultGroundCreator implements GroundCreator {
 
 	/**
 	 * Constructor.
-	 * Initialises the map data structure that associates characters with their corresponding GroundInfo.
+	 * Initializes the map data structure that associates characters with their corresponding GroundInfo.
 	 */
 	public DefaultGroundCreator() {
 		this.map = new HashMap<>();
