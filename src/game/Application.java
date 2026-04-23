@@ -33,7 +33,6 @@ public class Application {
             eclipseNebula.run();
         }
         catch (Exception e) {
-            // General exception, to help debugging.
             e.printStackTrace();
         }
     }

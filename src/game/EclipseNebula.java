@@ -1,7 +1,6 @@
 package game;
 
 import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.items.Inventory;
 import edu.monash.fit2099.engine.positions.DefaultGroundCreator;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
@@ -12,17 +11,25 @@ import java.util.List;
 /**
  * This class handles the miracle of creation, translating a bunch of periods
  * and hashtags into a sprawling, functional sci-fi facility.
+ *
+ * <p>Each worker starts with their own {@link WeightLimitedInventory} (cap: 50 units)
+ * and a personal {@link Flask}. The three shared items — {@link AccessCard},
+ * {@link FirstAidKit}, and {@link SterilisationBox} — are each instantiated exactly
+ * once and placed aboard the armored ship, forcing players to split responsibilities.
  */
 public class EclipseNebula extends World {
+
     public EclipseNebula(Display display) {
         super(display);
     }
 
     /**
-     * Initialise maps, actors, items, and grounds of the game world.
-     * @throws Exception in case if anything goes wrong...
+     * Initialize maps, actors, items, and grounds of the game world.
+     *
+     * @throws Exception if anything goes wrong during setup
      */
     public void initialise() throws Exception {
+        // --- Ground types ---
         DefaultGroundCreator groundCreator = new DefaultGroundCreator();
         groundCreator.registerGround('.', Dirt::new);
         groundCreator.registerGround('#', Wall::new);
@@ -30,6 +37,7 @@ public class EclipseNebula extends World {
         groundCreator.registerGround('_', Floor::new);
         groundCreator.registerGround('=', Door::new);
 
+        // --- Map layout ---
         List<String> moon99Deprecated = Arrays.asList(
                 "....................########################################",
                 "...#######..........#__________________#___________________#",
@@ -56,20 +64,36 @@ public class EclipseNebula extends World {
         GameMap moon99DeprecatedMap = new GameMap("99-Deprecated", groundCreator, moon99Deprecated);
         this.addGameMap(moon99DeprecatedMap);
 
-        moon99DeprecatedMap.at(7, 2).addItem(new AccessCard());
+        // --- Shared items aboard the armored ship (one of each) ---
+        // Workers must decide who carries what; weight limits enforce cooperation.
+        moon99DeprecatedMap.at(4, 2).addItem(new AccessCard());       // 1 unit
+        moon99DeprecatedMap.at(4, 3).addItem(new FirstAidKit());      // 25 units
+        moon99DeprecatedMap.at(4, 4).addItem(new SterilisationBox()); // 7 units
 
-        Inventory inventory1 = new BasicInventory();
-        inventory1.add(new Flask());
-        // BEHOLD, LOCAL MULTIPLAYER!!!
-        ContractedWorker contractedWorker1 = new ContractedWorker("#1 Bob", 'ඞ', 10, inventory1);
-        ContractedWorker contractedWorker2 = new ContractedWorker("#2 Tom", 'ඞ', 10, inventory1);
-        ContractedWorker contractedWorker3 = new ContractedWorker("#3 Sarah", 'ඞ', 10, inventory1);
-        ContractedWorker contractedWorker4 = new ContractedWorker("#4 Julie", 'ඞ', 10, inventory1);
-        ContractedWorker contractedWorker5 = new ContractedWorker("#5 Rick", 'ඞ', 10, inventory1);
+        // --- Workers: each gets their own inventory and flask ---
+        ContractedWorker contractedWorker1 = createWorker("#1 Bob");
+        ContractedWorker contractedWorker2 = createWorker("#2 Tom");
+        ContractedWorker contractedWorker3 = createWorker("#3 Sarah");
+        ContractedWorker contractedWorker4 = createWorker("#4 Julie");
+        ContractedWorker contractedWorker5 = createWorker("#5 Rick");
+
         this.addPlayer(contractedWorker1, moon99DeprecatedMap.at(6, 2));
         this.addPlayer(contractedWorker2, moon99DeprecatedMap.at(7, 2));
         this.addPlayer(contractedWorker3, moon99DeprecatedMap.at(8, 2));
         this.addPlayer(contractedWorker4, moon99DeprecatedMap.at(6, 4));
-        this.addPlayer(contractedWorker5, moon99DeprecatedMap.at(8, 4));
+        this.addPlayer(contractedWorker5, moon99DeprecatedMap.at(7, 4));
+    }
+
+    /**
+     * Helper method that creates a {@link ContractedWorker} with a personal
+     * {@link WeightLimitedInventory} (cap: 50 units) preloaded with a fresh {@link Flask}.
+     *
+     * @param name the worker's display name
+     * @return a fully initialised ContractedWorker
+     */
+    private ContractedWorker createWorker(String name) {
+        WeightLimitedInventory inventory = new WeightLimitedInventory(50);
+        inventory.add(new Flask()); // every worker starts with their own flask (3 units)
+        return new ContractedWorker(name, 'ඞ', 10, inventory);
     }
 }

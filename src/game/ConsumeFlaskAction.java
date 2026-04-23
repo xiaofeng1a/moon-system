@@ -2,8 +2,6 @@ package game;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.items.Inventory;
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 
 /**
@@ -12,32 +10,34 @@ import edu.monash.fit2099.engine.positions.GameMap;
  * Because nothing cures catastrophic injuries quite like aggressive hydration.
  *
  * @see Action
+ * @see Flask
  */
 public class ConsumeFlaskAction extends Action {
 
+    /** The flask being consumed. */
+    private final Flask flask;
+
     /**
-     * When executed, it will check for the actor's inventory whether they are carrying the flask.
-     * If so, it will decrease the flask content and heal the actor.
+     * Constructor.
+     *
+     * @param flask the flask to consume
+     */
+    public ConsumeFlaskAction(Flask flask) {
+        this.flask = flask;
+    }
+
+    /**
+     * Consumes one use of the flask and heals the actor by 1 HP.
      *
      * @param actor The actor consuming the flask.
-     * @param map The map the actor is on.
-     * @return the description of the result of the action
+     * @param map   The map the actor is on.
+     * @return a description of the result
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        Inventory inventory = actor.getInventory();
-        Flask flask = null;
-        for (Item item : inventory.getItems()) {
-            if (item instanceof Flask) {
-                flask = (Flask) item;
-            }
-        }
-        if (flask != null) {
-            flask.totalUsable -= 1;
-            actor.heal(1);
-            return actor + " drinks flask, which heals them by 1 point of health.";
-        }
-        return actor + " does not carry a flask.";
+        flask.consume();
+        actor.heal(1);
+        return actor + " drinks from the flask, restoring 1 point of health.";
     }
 
     @Override
