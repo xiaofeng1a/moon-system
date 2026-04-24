@@ -6,7 +6,8 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.statistics.BaseStatistic;
-import game.action.UseFirstAidKitAction;
+import game.action.Consumable;
+import game.action.ConsumeAction;
 
 /**
  * A super useful medical kit, weighing a back-breaking 25 units.
@@ -15,7 +16,7 @@ import game.action.UseFirstAidKitAction;
  * It requires a 20-turn cooldown between uses — crucially, the timer only advances
  * while the kit is actively being carried by a worker. Leave it on the floor, stop the clock.
  */
-public class FirstAidKit extends Item {
+public class FirstAidKit extends Item implements Consumable {
 
     /** Turns remaining before the kit can be used again. Zero means ready. */
     private int cooldownRemaining = 0;
@@ -69,17 +70,43 @@ public class FirstAidKit extends Item {
     }
 
     /**
-     * When carried, offers a UseFirstAidKitAction if the kit is not on cooldown.
+     * Raises the actor's max HP by 1, restores health to full, and starts the cooldown.
+     *
+     * @param actor the actor consuming this kit
+     * @param map   the map the actor is on
+     * @return a description of the result
+     */
+    @Override
+    public String consume(Actor actor, GameMap map) {
+        actor.modifyStatisticMaximum(
+                edu.monash.fit2099.engine.actors.ActorStatistics.HEALTH,
+                edu.monash.fit2099.engine.statistics.StatisticOperations.INCREASE, 1);
+        int newMax = actor.getMaximumStatistic(
+                edu.monash.fit2099.engine.actors.ActorStatistics.HEALTH);
+        actor.modifyStatistic(
+                edu.monash.fit2099.engine.actors.ActorStatistics.HEALTH,
+                edu.monash.fit2099.engine.statistics.StatisticOperations.UPDATE, newMax);
+        triggerCooldown();
+        return actor + " uses the First Aid Kit: maximum health permanently increased by 1 and health fully restored.";
+    }
+
+    @Override
+    public String consumeMenuDescription(Actor actor) {
+        return actor + " uses First Aid Kit (permanently +1 max HP, restore to full)";
+    }
+
+    /**
+     * Exposes a generic ConsumeAction when the kit is ready (not on cooldown).
      *
      * @param owner the actor carrying this item
      * @param map   the current game map
-     * @return an ActionList containing the use action if ready, otherwise empty
+     * @return an ActionList containing the consume action if ready, otherwise empty
      */
     @Override
     public ActionList allowableActions(Actor owner, GameMap map) {
         ActionList actions = new ActionList();
         if (isReady()) {
-            actions.add(new UseFirstAidKitAction(this));
+            actions.add(new ConsumeAction(this));
         }
         return actions;
     }

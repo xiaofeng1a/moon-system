@@ -6,10 +6,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
 import game.ground.*;
 import game.inventory.WeightLimitedInventory;
-import game.item.AccessCard;
-import game.item.FirstAidKit;
-import game.item.Flask;
-import game.item.SterilisationBox;
+import game.item.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -72,9 +69,22 @@ public class EclipseNebula extends World {
 
         // --- Shared items aboard the armored ship (one of each) ---
         // Workers must decide who carries what; weight limits enforce cooperation.
-        moon99DeprecatedMap.at(4, 2).addItem(new AccessCard());       // 1 unit
-        moon99DeprecatedMap.at(4, 3).addItem(new FirstAidKit());      // 25 units
-        moon99DeprecatedMap.at(4, 4).addItem(new SterilisationBox()); // 7 units
+        moon99DeprecatedMap.at(4, 2).addItem(new AccessCard());
+        moon99DeprecatedMap.at(4, 3).addItem(new FirstAidKit());
+        moon99DeprecatedMap.at(4, 4).addItem(new SterilisationBox());
+        // --- Apples scattered across the facility (3x) ---
+        moon99DeprecatedMap.at(30, 1).addItem(new Apple());
+        moon99DeprecatedMap.at(45, 10).addItem(new Apple());
+        moon99DeprecatedMap.at(50, 17).addItem(new Apple());
+
+        // --- Cookies scattered across the facility (3x) ---
+        moon99DeprecatedMap.at(25, 5).addItem(new Cookies());
+        moon99DeprecatedMap.at(35, 14).addItem(new Cookies());
+        moon99DeprecatedMap.at(48, 5).addItem(new Cookies());
+
+        // --- Lanterns scattered across the facility (2x) ---
+        moon99DeprecatedMap.at(22, 8).addItem(new Lantern());
+        moon99DeprecatedMap.at(42, 15).addItem(new Lantern());
 
         // --- Workers: each gets their own inventory and flask ---
         ContractedWorker contractedWorker1 = createWorker("#1 Bob");
@@ -85,7 +95,7 @@ public class EclipseNebula extends World {
 
         this.addPlayer(contractedWorker1, moon99DeprecatedMap.at(6, 2));
         this.addPlayer(contractedWorker2, moon99DeprecatedMap.at(7, 2));
-        this.addPlayer(contractedWorker3, moon99DeprecatedMap.at(8, 2));
+        this.addPlayer(contractedWorker3, moon99DeprecatedMap.at(5, 2));
         this.addPlayer(contractedWorker4, moon99DeprecatedMap.at(6, 4));
         this.addPlayer(contractedWorker5, moon99DeprecatedMap.at(7, 4));
     }
