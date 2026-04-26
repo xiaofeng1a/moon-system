@@ -67,26 +67,27 @@ public class AlarmSystem {
         listeners.remove(listener);
     }
 
-    /**
-     * Triggers the alarm if it is not already active.
-     * Notifies all registered listeners.
-     */
-    public void trigger() {
-        if (!alarmActive) {
-            alarmActive = true;
-            for (AlarmListener listener : listeners) {
-                listener.onAlarmTriggered();
-            }
-        }
-    }
+    private static final int ALARM_DURATION = 20;
+    private int alarmTurnsRemaining = 0;
 
-    /**
-     * Called once per game turn. If the alarm is active, ticks all listeners.
-     */
     public void tick() {
         if (alarmActive) {
             for (AlarmListener listener : new ArrayList<>(listeners)) {
                 listener.onAlarmTick();
+            }
+            alarmTurnsRemaining--;
+            if (alarmTurnsRemaining <= 0) {
+                deactivate(); // revert all listeners after 30 turns
+            }
+        }
+    }
+
+    public void trigger() {
+        if (!alarmActive) {
+            alarmActive = true;
+            alarmTurnsRemaining = ALARM_DURATION;
+            for (AlarmListener listener : listeners) {
+                listener.onAlarmTriggered();
             }
         }
     }
@@ -101,12 +102,5 @@ public class AlarmSystem {
                 listener.onAlarmDeactivated();
             }
         }
-    }
-
-    /**
-     * @return true if the alarm is currently active
-     */
-    public boolean isActive() {
-        return alarmActive;
     }
 }
