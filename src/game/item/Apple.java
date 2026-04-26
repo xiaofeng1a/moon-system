@@ -19,7 +19,7 @@ import game.status.PoisonStatus;
 public class Apple extends Item implements Consumable {
 
     public Apple() {
-        super("Apple", 'o');
+        super("Apple", 'ó');
         this.addNewStatistic(ItemStatistics.WEIGHT, new BaseStatistic(1));
         this.makePortable();
     }

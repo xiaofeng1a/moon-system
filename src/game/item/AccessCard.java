@@ -25,7 +25,7 @@ import game.ground.Door;
 public class AccessCard extends Item {
 
     public AccessCard() {
-        super("Access Card", 'A');
+        super("Access Card", '▤');
         this.addNewStatistic(ItemStatistics.WEIGHT, new BaseStatistic(1));
         this.makePortable();
     }
