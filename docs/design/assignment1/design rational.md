@@ -139,7 +139,7 @@ I implemented `AlarmSystem` as a singleton so any class anywhere in the game can
 The trade-off I accept is that singletons are harder to test since I cannot easily replace them with a mock. For a game at this scale I think this is acceptable, but in a larger system I would use dependency injection instead.
 
 ### AlarmListener Interface Design
-
+ 
 I kept `AlarmListener` minimal — three methods with two default empty implementations. Classes only override what they need: I made `Undead` override `onAlarmTriggered()` and `onAlarmDeactivated()` to switch movement mode, and `Door` override all three to manage the lockdown countdown. The defaults mean classes are not forced to implement methods they do not need (ISP).
 
 I considered using three separate interfaces: `TriggerListener`, `TickListener`, and `DeactivateListener`. This would be more strictly ISP-compliant, but it would mean `AlarmSystem` needs three separate listener lists and classes responding to multiple events would have to implement multiple interfaces. Since two of the three methods have sensible empty defaults anyway, I chose one interface with defaults as the simpler and more practical option.
