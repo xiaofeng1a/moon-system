@@ -63,8 +63,8 @@ public class Cookies extends Item implements Consumable {
     public String consume(Actor actor, GameMap map) {
         consume();
 
-        boolean hasSterilisationBox = !actor.getInventory()
-                .getItemsAs(SterilisationBox.class).isEmpty();
+        boolean hasSterilisationBox = actor.getInventory().getItems().stream()
+                .anyMatch(item -> item instanceof SterilisationBox);
 
         String result;
         if (hasSterilisationBox) {

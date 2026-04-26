@@ -33,7 +33,7 @@ public class WeightLimitedInventory extends Inventory {
         Display display = new Display();
         if (item.hasStatistic(ItemStatistics.WEIGHT)) {
             int itemWeight =  item.getStatistic(ItemStatistics.WEIGHT);
-            if (weight + itemWeight < this.weightLimit) {
+            if (weight + itemWeight <= this.weightLimit) {
                 items.add(item);
                 this.weight += itemWeight;
                 display.println(String.format("%s added successfully. Current inventory weight (%d/%d)", item, weight, weightLimit));

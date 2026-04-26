@@ -35,8 +35,8 @@ public class Puddle extends Ground implements Consumable {
      */
     @Override
     public String consume(Actor actor, GameMap map) {
-        boolean hasSterilisationBox = !actor.getInventory()
-                .getItemsAs(SterilisationBox.class).isEmpty();
+        boolean hasSterilisationBox = actor.getInventory().getItems().stream()
+                .anyMatch(item -> item instanceof SterilisationBox);
 
         if (hasSterilisationBox) {
             actor.heal(1);

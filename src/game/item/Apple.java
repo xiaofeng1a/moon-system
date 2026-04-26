@@ -36,8 +36,8 @@ public class Apple extends Item implements Consumable {
     public String consume(Actor actor, GameMap map) {
         actor.getInventory().remove(this);
 
-        boolean hasSterilisationBox = !actor.getInventory()
-                .getItemsAs(SterilisationBox.class).isEmpty();
+        boolean hasSterilisationBox = actor.getInventory().getItems().stream()
+                .anyMatch(item -> item instanceof SterilisationBox);
 
         if (hasSterilisationBox) {
             actor.heal(3);
