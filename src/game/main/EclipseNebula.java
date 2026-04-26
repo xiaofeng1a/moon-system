@@ -92,6 +92,10 @@ public class EclipseNebula extends World {
         moon99DeprecatedMap.at(25, 10).addItem(new CRTMonitor());
         moon99DeprecatedMap.at(46, 18).addItem(new FloppyDisk());
 
+        moon99DeprecatedMap.at(40, 2).setGround(new AlarmTile());
+        moon99DeprecatedMap.at(45, 7).setGround(new AlarmTile());
+        moon99DeprecatedMap.at(30, 14).setGround(new AlarmTile());
+
         // --- Workers: each gets their own inventory and flask ---
         ContractedWorker contractedWorker1 = createWorker("#1 Bob");
         ContractedWorker contractedWorker2 = createWorker("#2 Tom");
