@@ -77,7 +77,7 @@ public class AlarmSystem {
             }
             alarmTurnsRemaining--;
             if (alarmTurnsRemaining <= 0) {
-                deactivate(); // revert all listeners after 30 turns
+                deactivate();
             }
         }
     }
