@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.DefaultGroundCreator;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
+import game.actor.ContractedWorker;
 import game.ground.*;
 import game.inventory.WeightLimitedInventory;
 import game.item.*;
