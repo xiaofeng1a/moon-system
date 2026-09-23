@@ -118,7 +118,7 @@ I used `Random.nextBoolean()` for a 50/50 random choice between `Undead` and `Sl
 
 ### Undead Intrinsic Weapon
 
-`IntrinsicWeapon` is abstract and needs a subclass. Since only `Undead` uses a fist, I used an anonymous subclass inline: `new IntrinsicWeapon(1, "punches", 10, "Fist") {}`. The engine's own comments say making a natural weapon an `Item` is wrong — `IntrinsicWeapon` is the right abstraction. If a second creature needed the same fist, I would create a named class (DRY). For one user, the anonymous subclass keeps things clean without adding an extra file (YAGNI).
+`IntrinsicWeapon` is abstract and needs a subclass. Since only `Undead` uses a fist, I used an anonymous subclass inline: `new IntrinsicWeapon(1, "punches", 10, "Fist") {}`. The engine's own comments say making a natural weapon an `Item` is wrong — `IntrinsicWeapon` is the right abstraction.
 
 ---
 

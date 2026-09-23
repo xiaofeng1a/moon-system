@@ -40,9 +40,9 @@ public class Fire extends Ground {
 
         turnsRemaining--;
 
-        // Once expired, replace this tile with plain dirt
+        // Once expired, replace this tile with floor
         if (turnsRemaining <= 0) {
-            location.setGround(new Dirt());
+            location.setGround(new Floor());
         }
     }
 }
